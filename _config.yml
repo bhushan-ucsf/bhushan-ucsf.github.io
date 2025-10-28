@@ -2,7 +2,7 @@ title: Your Name
 description: Scientist, explorer of the unknown
 theme: null
 logo: /assets/headshot.jpg
-url: https://bhushan.github.io
+url: https://bhushan-ucsf.github.io
 plugins:
   - jekyll-seo-tag
   - jekyll-sitemap
