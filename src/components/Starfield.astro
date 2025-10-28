@@ -1,0 +1,35 @@
+<canvas id="stars" aria-hidden="true"></canvas>
+<style>
+#stars{position:fixed; inset:0; z-index:0; filter: drop-shadow(0 0 2px #fff); pointer-events:none}
+</style>
+<script>
+const c = document.getElementById('stars');
+const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (!prefersReduced) {
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  const ctx = c.getContext('2d');
+  let w,h,stars=[];
+  function resize(){
+    w=window.innerWidth; h=window.innerHeight;
+    c.width=w*dpr; c.height=h*dpr; c.style.width=w+'px'; c.style.height=h+'px';
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    const N = Math.min(240, Math.round(w*h/8000));
+    stars = Array.from({length:N}, ()=>({ x:Math.random()*w, y:Math.random()*h, z:Math.random()*1+0.2, s:Math.random()*1.5+0.2 }));
+  }
+  function tick(){
+    ctx.clearRect(0,0,w,h);
+    for(const st of stars){
+      st.x += st.z*0.25;
+      if(st.x> w) st.x = 0;
+      ctx.globalAlpha = 0.6 + Math.random()*0.4;
+      ctx.fillStyle = 'white';
+      ctx.fillRect(st.x, st.y, st.s, st.s);
+    }
+    requestAnimationFrame(tick);
+  }
+  window.addEventListener('resize', ()=>requestAnimationFrame(resize), {passive:true});
+  resize(); tick();
+} else {
+  c.remove();
+}
+</script>

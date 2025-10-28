@@ -1,0 +1,39 @@
+---
+import Base from "../layouts/Base.astro";
+import Starfield from "../components/Starfield.astro";
+---
+<Base title="Your Name, UC Scientist" description="Research in XYZ">
+  <Fragment slot="bg"><Starfield /></Fragment>
+  <h2 class="text-xl">Mission log</h2>
+  <p>Welcome to my lab site, built for deep space curiosity. I study <strong>XYZ</strong>. My tools include ABC, DEF, and GHI.</p>
+  <ul class="mt-3">
+    <li>📄 <a href="/CV.pdf">CV</a></li>
+    <li>🔗 <a href="https://scholar.google.com/...">Google Scholar</a>, <a href="https://orcid.org/...">ORCID</a>, <a href="https://github.com/yourname">GitHub</a>, <a href="mailto:you@university.edu">Email</a></li>
+  </ul>
+
+  <h2 class="mt-6 text-xl">Signals, recent news</h2>
+  <ul class="list-disc ml-6">
+    <li>2025-09-30, Paper accepted at Journal of Cool Things.</li>
+    <li>2025-07-12, Released dataset v1.2, DOI 10.5281/zenodo.XXXXX.</li>
+  </ul>
+
+  <h2 class="mt-6 text-xl">Selected publications</h2>
+  <ul>
+    <li>Lastname, Y. <em>Title</em>, Journal, Year. <a href="/pubs/paper1.pdf">PDF</a>, <a href="https://github.com/...">Code</a>, <a href="/pubs/paper1.bib">BibTeX</a></li>
+    <li>Lastname, Y. <em>Title</em>, Conference, Year. <a href="/pubs/paper2.pdf">PDF</a></li>
+  </ul>
+
+  <h2 class="mt-6 text-xl">Current projects</h2>
+  <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem">
+    <div class="card">
+      <h3 class="text-lg" style="font-weight:600">Project A</h3>
+      <p>Short blurb, goal, current status.</p>
+      <p style="color:var(--dim);font-size:0.9rem">Repo, <a href="https://github.com/...">code</a>, <a href="https://...">demo</a></p>
+    </div>
+    <div class="card">
+      <h3 class="text-lg" style="font-weight:600">Project B</h3>
+      <p>Short blurb, method, dataset.</p>
+      <p style="color:var(--dim);font-size:0.9rem">Preprint, <a href="/pubs/b-preprint.pdf">pdf</a></p>
+    </div>
+  </div>
+</Base>

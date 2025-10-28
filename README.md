@@ -1,4 +1,15 @@
-# Sci fiction GitHub Pages starter
+# UC Elite Astro site
+Modern, fast, impressive. Built with Astro and Tailwind, deploys to GitHub Pages.
 
-Upload this folder into a repository named `<your-username>.github.io`, then enable GitHub Pages, Source, Deploy from a branch, Branch `main`, folder `/root`.
-Edit `index.md`, `publications.md`, and `projects.md` with your details. Replace `assets/headshot.jpg` and `assets/social.png`.
+Quick start
+1) Create a repo, any name, public.
+2) Upload these files, commit to main.
+3) In Settings, Pages, set Source to GitHub Actions.
+4) Push any change to run the workflow and publish.
+
+Local dev
+- Install Node 18 or newer.
+- npm install
+- npm run dev
+
+Customize src/pages content. Replace /public/headshot.jpg and /public/social.png.
