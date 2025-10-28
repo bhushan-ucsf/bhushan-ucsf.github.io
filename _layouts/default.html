@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {% seo %}
+  <meta name="theme-color" content="#00ffe1">
+  <meta property="og:image" content="{{ site.url }}/assets/social.png">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><circle cx='32' cy='32' r='28' fill='%2300ffe1'/><path d='M12 33h40' stroke='black' stroke-width='4'/><path d='M32 13v40' stroke='black' stroke-width='4'/></svg>">
+  <link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+  <canvas id="stars" aria-hidden="true"></canvas>
+
+  <div class="frame">
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="site-header">
+      <div class="id">
+        <img src="{{ site.logo }}" alt="Headshot" class="avatar" width="96" height="96">
+        <div>
+          <h1 class="glow"><a href="/">{{ site.title }}</a></h1>
+          <p class="tag">{{ site.description }}</p>
+        </div>
+      </div>
+      <nav class="nav">
+        <a href="/">Home</a>
+        <a href="/publications">Publications</a>
+        <a href="/projects">Projects</a>
+        <a href="/cv">CV</a>
+        <a href="/contact">Contact</a>
+      </nav>
+    </header>
+
+    <main id="main" class="content">
+      {{ content }}
+    </main>
+
+    <footer class="site-footer">
+      <span>© {{ site.title }} {{ "now" | date: "%Y" }}</span>
+      <span>•</span>
+      <a href="https://orcid.org/your-orcid">ORCID</a>
+      <a href="https://scholar.google.com/citations?user=XXXX">Scholar</a>
+      <a href="https://github.com/yourname">GitHub</a>
+    </footer>
+  </div>
+
+  <svg width="0" height="0" class="defs">
+    <defs>
+      <filter id="scan">
+        <feTurbulence baseFrequency="0.7" numOctaves="2" seed="42" type="fractalNoise" />
+        <feColorMatrix type="saturate" values="0" />
+        <feComponentTransfer>
+          <feFuncA type="table" tableValues="0 0 0 0 0 0.05 0 0 0 0"/>
+        </feComponentTransfer>
+      </filter>
+    </defs>
+  </svg>
+
+  <script>
+    // reduced motion guard
+    const c = document.getElementById('stars');
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!prefersReduced) {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const ctx = c.getContext('2d');
+      let w,h,stars=[];
+      function resize(){
+        w=window.innerWidth; h=window.innerHeight;
+        c.width=w*dpr; c.height=h*dpr; c.style.width=w+'px'; c.style.height=h+'px';
+        ctx.setTransform(dpr,0,0,dpr,0,0);
+        makeStars();
+      }
+      function makeStars(){
+        const N = Math.min(220, Math.round(w*h/8000));
+        stars = Array.from({length:N}, ()=>({ x:Math.random()*w, y:Math.random()*h, z:Math.random()*1+0.2, s:Math.random()*1.5+0.2 }));
+      }
+      function tick(){
+        ctx.clearRect(0,0,w,h);
+        for(const st of stars){
+          st.x += st.z*0.25;
+          if(st.x> w) st.x = 0;
+          ctx.globalAlpha = 0.6 + Math.random()*0.4;
+          ctx.fillStyle = 'white';
+          ctx.fillRect(st.x, st.y, st.s, st.s);
+        }
+        requestAnimationFrame(tick);
+      }
+      window.addEventListener('resize', ()=>requestAnimationFrame(resize), {passive:true});
+      resize(); tick();
+    } else {
+      c.remove();
+    }
+  </script>
+</body>
+</html>
